@@ -1,6 +1,6 @@
-# Advent of Code 2023 Solutions
+# Advent of Code Solutions
 
-This repository contains my solutions for Advent of Code 2023, a series of programming challenges that take place during the month of December. Each day, a new problem is released, and participants are tasked with solving it using their programming skills.
+This repository contains my solutions for Advent of Code, a series of programming challenges that take place during the month of December. Each day, a new problem is released, and participants are tasked with solving it using their programming skills.
 
 ## About Advent of Code
 
