@@ -7,25 +7,25 @@ def parse_puzzle():
 
     column1 = []
     column2 = []
-    
+
     for line in file:
         # I inserted the first value in c1 and the second one in c2
         [c1, c2] = line.strip().split("   ")
         column1.append(int(c1))
         column2.append(int(c2))
-    
+
     # returns the columns
     return column1, column2
 
 
 def solve_part_one():
     c1, c2 = parse_puzzle()
-    
+
     c1.sort()
     c2.sort()
     tot = 0
-    
-    for i,el in enumerate(c1):
+
+    for i, el in enumerate(c1):
         tot += abs(c1[i] - c2[i])
 
     return tot
@@ -34,22 +34,22 @@ def solve_part_one():
 def sum_of_products(d):
     tot = 0
     for k in d:
-        tot += k*d[k]
+        tot += k * d[k]
 
     return tot
-    
+
 
 def solve_part_two():
     c1, c2 = parse_puzzle()
     d = {}
-    
+
     for x in c1:
         d[x] = 0
-    
+
     for x in c2:
         if x in d:
             d[x] += 1
-        
+
     return sum_of_products(d)
 
 

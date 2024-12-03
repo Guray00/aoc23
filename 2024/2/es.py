@@ -1,5 +1,6 @@
 FILENAME = "input.txt"
 
+
 # returns two list each one with a column
 def parse_puzzle():
     file = open(FILENAME, "r", encoding="utf-8")
@@ -10,16 +11,17 @@ def parse_puzzle():
 
     return levels
 
+
 def analyze_level(level):
     asc = level[0] < level[1]
 
-    for i,x in enumerate(level[0:-1]):
-        diff = level[i+1] - level[i]
+    for i, x in enumerate(level[0:-1]):
+        diff = level[i + 1] - level[i]
 
-        if asc and not 1<=diff<=3:
+        if asc and not 1 <= diff <= 3:
             return False
 
-        elif not asc and not -3<=diff<=-1:
+        elif not asc and not -3 <= diff <= -1:
             return False
 
     return True
@@ -32,27 +34,29 @@ def solve_part_one(levels):
 
     return counter
 
+
 # *************************************
 #              part 2
 # *************************************
 
-def verify_report(report)->bool:
+
+def verify_report(report) -> bool:
     diffs = []
 
-    for i,_ in enumerate(report[0:-1]):
-        diff = report[i+1] - report[i]
+    for i, _ in enumerate(report[0:-1]):
+        diff = report[i + 1] - report[i]
         diffs.append(diff)
 
     prec = report[1] - report[0]
-    for i,x in enumerate(diffs):
-        if not 1<=abs(x)<=3:
+    for i, x in enumerate(diffs):
+        if not 1 <= abs(x) <= 3:
             return False, i
         elif x == 0:
             return False, i
-        elif prec * x < 0: # different signs in case
+        elif prec * x < 0:  # different signs in case
             return False, i
         prec = x
-    
+
     return True, None
 
 
@@ -62,10 +66,17 @@ def solve_part_two(reports):
         result, error_index = verify_report(report)
 
         if not result:
-            combination1 = report[0:error_index] + report[error_index+1:]
-            combination2 = report[0:error_index-1] + report[error_index:]
-            combination3 = report[0:error_index+1] + report[min(error_index+2, len(report)):]
-            counter += int(verify_report(combination1)[0] or verify_report(combination2)[0] or verify_report(combination3)[0])
+            combination1 = report[0:error_index] + report[error_index + 1 :]
+            combination2 = report[0 : error_index - 1] + report[error_index:]
+            combination3 = (
+                report[0 : error_index + 1]
+                + report[min(error_index + 2, len(report)) :]
+            )
+            counter += int(
+                verify_report(combination1)[0]
+                or verify_report(combination2)[0]
+                or verify_report(combination3)[0]
+            )
 
         else:
             counter += 1
