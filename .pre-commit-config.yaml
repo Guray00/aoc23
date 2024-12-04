@@ -9,9 +9,18 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
 
-
+  # python formatter
   - repo: https://github.com/psf/black
     rev: 23.9.1  # Use the latest version of black
     hooks:
       - id: black
         language_version: python3  # Ensure it uses Python 3.x
+
+  # rust formatter
+  - repo: local
+    hooks:
+      - id: rustfmt
+        name: rustfmt
+        entry: rustfmt
+        language: system
+        types: [rust]

@@ -1,7 +1,6 @@
-use std::fs::File;
-use std::io::{BufReader, BufRead, Error};
 use std::collections::HashMap;
-
+use std::fs::File;
+use std::io::{BufRead, BufReader, Error};
 
 #[derive(Default, Clone, Debug)]
 struct Puzzle {
@@ -13,10 +12,10 @@ fn parse_puzzle() -> Result<Puzzle, Error> {
     let file = File::open("./input.txt")?;
     let reader = BufReader::new(file);
 
-    let mut res:Puzzle = Puzzle::default();
+    let mut res: Puzzle = Puzzle::default();
 
     for line in reader.lines() {
-        let parts:Vec<i32> = line?
+        let parts: Vec<i32> = line?
             .trim()
             .split("   ")
             .map(|s| s.parse().unwrap_or(0))
@@ -29,14 +28,13 @@ fn parse_puzzle() -> Result<Puzzle, Error> {
     Ok(res)
 }
 
-
-fn solve_part_one(puzzle:&Puzzle)-> Result<i32, Error>{
-    let mut tmp:Puzzle = puzzle.clone();
+fn solve_part_one(puzzle: &Puzzle) -> Result<i32, Error> {
+    let mut tmp: Puzzle = puzzle.clone();
 
     tmp.column1.sort();
     tmp.column2.sort();
 
-    let mut tot:i32 = 0;
+    let mut tot: i32 = 0;
     for (i, _) in tmp.column1.iter().enumerate() {
         tot += (tmp.column1[i] - tmp.column2[i]).abs();
     }
@@ -50,9 +48,9 @@ fn solve_part_one(puzzle:&Puzzle)-> Result<i32, Error>{
 *************************
 */
 
-fn sum_of_products(map:&HashMap<i32, i32>) -> i32 {
+fn sum_of_products(map: &HashMap<i32, i32>) -> i32 {
     let mut tot = 0;
-    for key in map.keys(){
+    for key in map.keys() {
         let value = map.get(key).unwrap_or(&0);
         tot += *key * value;
     }
@@ -60,14 +58,14 @@ fn sum_of_products(map:&HashMap<i32, i32>) -> i32 {
     tot
 }
 
-fn solve_part_two(puzzle:&Puzzle)-> Result<i32, Error>{
+fn solve_part_two(puzzle: &Puzzle) -> Result<i32, Error> {
     let mut d = HashMap::new();
 
     for x in puzzle.column1.iter() {
         d.insert(*x, 0);
     }
 
-    for x in puzzle.column2.iter(){
+    for x in puzzle.column2.iter() {
         if d.contains_key(x) {
             *d.entry(*x).or_insert(0) += 1;
         }
@@ -76,7 +74,6 @@ fn solve_part_two(puzzle:&Puzzle)-> Result<i32, Error>{
     let result = sum_of_products(&d);
     Ok(result)
 }
-
 
 fn main() -> () {
     let puzzle = parse_puzzle().unwrap();

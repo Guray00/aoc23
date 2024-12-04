@@ -82,4 +82,4 @@ def solve(filename):
     return total
 
 
-print(solve(r"C:\Users\marco\Workspace\challenges\adventofcode2023\03\input.txt"))
+print(solve(r"input.txt"))
