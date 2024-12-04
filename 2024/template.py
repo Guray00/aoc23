@@ -1,7 +1,7 @@
 FILENAME = "input.txt"
 
 
-# returns two list each one with a column
+# retrieves the input file and elaborates it
 def parse_puzzle():
     file = open(FILENAME, "r", encoding="utf-8")
 
