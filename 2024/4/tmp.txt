@@ -1,0 +1,2 @@
+result1: 18
+result2: 9
