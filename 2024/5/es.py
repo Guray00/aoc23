@@ -18,14 +18,9 @@ def parse_puzzle():
     flag_part = True
     for line in file:
         line = line.strip()
-
-        if line == "":
-            flag_part = False
-            continue
-
-        if flag_part:
+        if "|" in line:
             rules.append([int(x) for x in line.split("|")])
-        else:
+        elif "," in line:
             updates.append([int(x) for x in line.split(",")])
 
     rules_map = {}
@@ -70,26 +65,21 @@ def solve_part_one(puzzle: Puzzle):
 # *************************************
 
 
-@dataclass
-class Num:
-    prev: list
-    next: list
-
-
 def extract_rules(update, rules):
     map = set(update)
 
     adopted_rules = {}
 
     for num in rules:
-        if num in map:
-            filtered = []
+        if num not in map:
+            continue
 
-            for n in rules[num]:
-                if n in map:
-                    filtered.append(n)
+        filtered = []
+        for n in rules[num]:
+            if n in map:
+                filtered.append(n)
 
-            adopted_rules[num] = filtered
+        adopted_rules[num] = filtered
 
     for n in update:
         if n not in adopted_rules:
@@ -100,7 +90,6 @@ def extract_rules(update, rules):
 
 def order_update(update, rules):
     ordered = []
-
     filtered_rules = extract_rules(update, rules)
 
     sorted_update = [
